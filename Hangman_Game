@@ -1,0 +1,48 @@
+"""
+This program is basically a hangman game. Player(User) need to guess the word picked by the computer.
+If a guess of letter is correct, the letter will be displayed along woth the hint.
+Else, the hangman will be displayed one by one until the hangman is fully displayed. Then the player will be considered loss the game.
+For the word picking, it will be picked randonly by randint method.
+"""
+
+
+import random
+word_pool=["desert","avenue","loss","pot","stake","young","player","eat","warm","cheap"]
+answer=word_pool[(random.randint(0,9))]
+
+hangman=["",
+        "________ ",
+        "| ",
+        "| | ",
+        "| 0 ",
+        "| /|\ ",
+        "| / \ ",
+        "| "
+         ]
+
+wrong=0
+win=False
+correct_word=list(answer)
+hint=["_"]*len(answer)
+print ("Welcome to Hangman designed by Tan!") 
+
+#procedure of game
+while wrong<len(hangman)-1:
+    guess=input("Guess a letter:")
+    if guess in correct_word:
+        cref=correct_word.index(guess)
+        hint[cref]=guess
+        correct_word[cref]="$"
+    else:
+        wrong+=1
+    print ("".join(hint))
+    e=wrong+1
+    print ("\n".join(hangman[:e]))
+    if "_" not in hint:
+        print ("Congratulation!!You won the game!!")
+        print ("".join(hint))
+        win=True
+        break
+if not win:
+    print ("Oh no!!You lost the game!!!")
+    print ("The answer is"+" "+answer)
